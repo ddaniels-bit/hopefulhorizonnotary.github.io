@@ -90,14 +90,36 @@
         <div class="mini">Secure booking • Instant confirmation • Email reminders</div>
       </div>
       <!-- Replace the src with your Google Calendar Appointments embed URL -->
-      <iframe
-        src="https://calendar.app.google/U8Mkena1n2AxdGz38"
-        width="100%"
-        height="900"
-        style="border:0; border-radius:14px;"
-        loading="lazy"
-        allowtransparency="true"
-        ></iframe>
+<section id="book" class="glass" style="text-align:center; padding:40px 20px;">
+  <h2 style="font-size:24px; margin-bottom:10px;">Book Your Notary Appointment</h2>
+  <p style="color:#9ca3af; margin-bottom:30px;">
+    Secure, reliable, and convenient — same-day appointments may be available.  
+    Use the button below to view open times and schedule instantly.
+  </p>
+
+  <!-- Google Calendar Appointment Scheduling begin -->
+  <link href="https://calendar.google.com/calendar/scheduling-button-script.css" rel="stylesheet">
+  <script src="https://calendar.google.com/calendar/scheduling-button-script.js" async></script>
+  <script>
+    (function() {
+      var target = document.currentScript;
+      window.addEventListener('load', function() {
+        calendar.schedulingButton.load({
+          url: 'https://calendar.google.com/calendar/appointments/schedules/AcZssZ0sFYQsMCop2eQXuV6A2hCjYi78mi8HNXsdg3PWOYjkTZ9KSArXyj0jC-DzBILsUJIuGgk-LCN4?gv=true',
+          color: '#60a5fa', // match your site color
+          label: "Book an Appointment Today",
+          target,
+        });
+      });
+    })();
+  </script>
+  <!-- end Google Calendar Appointment Scheduling -->
+
+  <p style="margin-top:25px; font-size:14px; color:#9ca3af;">
+    Powered by Google Calendar
+  </p>
+</section>
+
       <div class="mini" style="margin-top:10px;"></div>
     </section>
 
