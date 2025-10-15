@@ -8,13 +8,12 @@
 <style>
   :root {
     --bg: #ffffff;
-    --text: #0f172a; /* slate-900 */
-    --muted: #475569; /* slate-600 */
-    --border: #e5e7eb; /* gray-200 */
-    --accent: #2563eb; /* blue-600 */
-    --accent-weak: #eff6ff; /* blue-50 */
+    --text: #0f172a;
+    --muted: #475569;
+    --border: #e5e7eb;
+    --accent: #2563eb;
+    --accent-weak: #eff6ff;
   }
-
   html, body { height: 100%; }
   body {
     margin: 0;
@@ -23,7 +22,6 @@
     background: var(--bg);
     -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   }
-
   .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
   header { display:flex; align-items:center; gap:16px; }
   .logo {
@@ -33,7 +31,6 @@
   }
   h1 { font-size: clamp(28px, 4vw, 42px); margin: 8px 0 4px; }
   p.lead { color: var(--muted); margin: 6px 0 0; font-size: clamp(14px, 2.4vw, 17px); }
-
   .card {
     margin-top: 26px; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
     box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
@@ -43,35 +40,16 @@
     padding:16px 18px; background: #fff; border-bottom: 1px solid var(--border);
   }
   .badge { font-size:12px; color:#0b1220; background: #dbeafe; padding:6px 10px; border-radius:999px; font-weight: 600; letter-spacing:.2px; border: 1px solid #bfdbfe; }
-
-  /* Tabs */
-  .tabbar { display:flex; gap:8px; padding: 10px 12px; background: var(--accent-weak); border-bottom: 1px solid var(--border); }
-  .tabbar button {
-    appearance: none; border: 1px solid var(--border); background:#fff; color: var(--text);
-    padding: 8px 12px; border-radius: 10px; font-weight: 600; font-size: 14px; cursor: pointer;
-  }
-  .tabbar button[aria-selected="true"] { border-color:#93c5fd; outline: 2px solid rgba(37,99,235,.15); }
-
   .booking-shell { position: relative; }
   .booking { width: 100%; height: 760px; border: none; display:block; background: #fff; }
-  .tab-panel { display: none; }
-  .tab-panel[data-active="true"] { display: block; }
-
-  .actions { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
-  .btn { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border-radius:10px; border:1px solid var(--border); text-decoration:none; font-weight:600; }
-  .btn.primary { background: var(--accent); color:#fff; border-color: var(--accent); }
-
   .help { margin-top: 18px; color: var(--muted); font-size: 14px; line-height:1.6; }
   .help a { color: var(--accent); text-decoration: none; }
   .help a:hover { text-decoration: underline; }
-
   .footer { margin-top: 40px; color: var(--muted); font-size: 13px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
   .dot { width:6px; height:6px; border-radius:999px; background: var(--muted); opacity:.5; }
-
   @media (max-width: 720px) {
     .booking { height: 980px; }
     .card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-    .tabbar { flex-wrap: wrap; }
   }
 </style>
 </head>
@@ -81,7 +59,7 @@
       <div class="logo" aria-hidden="true"></div>
       <div>
         <h1>Hopeful Horizon 24/7 Notary Service</h1>
-        <p class="lead">By appointment only. Use the Google Calendar scheduler below to book your notary appointment today.</p>
+        <p class="lead">By appointment only. Use the scheduler below to book your notary appointment today.</p>
       </div>
     </header>
 
@@ -94,44 +72,18 @@
         <span class="badge">Powered by Google Calendar</span>
       </div>
 
-      <!-- Quick actions -->
-      <div class="actions" style="padding:12px 16px;">
-        <a class="btn primary" href="#" onclick="document.getElementById('tab-google').click(); return false;">Open Google Scheduler</a>
-        <a class="btn" href="#" onclick="document.getElementById('tab-alt').click(); return false;">Use Alternate Scheduler</a>
-        <a class="btn" target="_blank" rel="noopener" href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ02JCdBbGznlwA6rVNvfPH067gxb0B17tE6HD3yVV97I_iyar8HFUGrk7O1OR6sYmPXlXdj8CGV">Open in new tab</a>
-      </div>
-
-      <!-- Tabs -->
-      <div class="tabbar" role="tablist" aria-label="Booking providers">
-        <button id="tab-google" role="tab" aria-selected="true" aria-controls="panel-google">Google Calendar</button>
-        <button id="tab-alt" role="tab" aria-selected="false" aria-controls="panel-alt">Alternate Link</button>
-      </div>
-
       <div class="booking-shell">
-        <div id="panel-google" class="tab-panel" role="tabpanel" aria-labelledby="tab-google" data-active="true">
-          <iframe
-            class="booking"
-            title="Google Calendar Booking"
-            src="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ02JCdBbGznlwA6rVNvfPH067gxb0B17tE6HD3yVV97I_iyar8HFUGrk7O1OR6sYmPXlXdj8CGV"
-            loading="lazy"
-            allowtransparency="true"></iframe>
-        </div>
-        <div id="panel-alt" class="tab-panel" role="tabpanel" aria-labelledby="tab-alt" data-active="false">
-          <iframe
-            class="booking"
-            title="Alternate Booking"
-            src="https://calendar.app.google/gX4MyLhD8YNoKSzbA"
-            loading="lazy"
-            allowtransparency="true"></iframe>
-        </div>
+        <iframe
+          class="booking"
+          title="Main Booking"
+          src="https://calendar.app.google/gX4MyLhD8YNoKSzbA"
+          loading="lazy"
+          allowtransparency="true"></iframe>
       </div>
     </section>
 
     <p class="help">
-      If you can’t see the embedded scheduler, you can
-      <a href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ02JCdBbGznlwA6rVNvfPH067gxb0B17tE6HD3yVV97I_iyar8HFUGrk7O1OR6sYmPXlXdj8CGV" target="_blank" rel="noopener">open the Google booking page in a new tab</a>
-      or
-      <a href="https://calendar.app.google/gX4MyLhD8YNoKSzbA" target="_blank" rel="noopener">use the alternate booking link</a>.
+      If you can’t see the scheduler above, <a href="https://calendar.app.google/gX4MyLhD8YNoKSzbA" target="_blank" rel="noopener">open the booking page in a new tab</a>.
     </p>
 
     <div class="footer">
@@ -146,23 +98,7 @@
   </div>
 
   <script>
-    // Year
     document.getElementById('yr').textContent = new Date().getFullYear();
-
-    // Simple tabs
-    const tabs = [
-      {btn: document.getElementById('tab-google'), panel: document.getElementById('panel-google')},
-      {btn: document.getElementById('tab-alt'), panel: document.getElementById('panel-alt')}
-    ];
-    tabs.forEach(({btn}, idx) => {
-      btn.addEventListener('click', () => {
-        tabs.forEach(({btn, panel}, j) => {
-          const active = j === idx;
-          btn.setAttribute('aria-selected', active ? 'true' : 'false');
-          panel.dataset.active = active;
-        });
-      });
-    });
   </script>
 </body>
 </html>
