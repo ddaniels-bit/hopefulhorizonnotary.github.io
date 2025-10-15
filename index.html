@@ -1,104 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Hopeful Horizon 24/7 Notary Service — Book an Appointment</title>
-<meta name="description" content="By appointment only. Use the Google Calendar scheduler below to book your notary appointment today.">
-<style>
-  :root {
-    --bg: #ffffff;
-    --text: #0f172a;
-    --muted: #475569;
-    --border: #e5e7eb;
-    --accent: #2563eb;
-    --accent-weak: #eff6ff;
-  }
-  html, body { height: 100%; }
-  body {
-    margin: 0;
-    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-    color: var(--text);
-    background: var(--bg);
-    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
-  }
-  .container { max-width: 1100px; margin: 0 auto; padding: 28px 20px 60px; }
-  header { display:flex; align-items:center; gap:16px; }
-  .logo {
-    width: 44px; height:44px; border-radius:12px;
-    background: linear-gradient(135deg, #93c5fd 0%, #3b82f6 50%, #1e3a8a 100%);
-    box-shadow: 0 6px 20px rgba(37, 99, 235, .25);
-  }
-  h1 { font-size: clamp(28px, 4vw, 42px); margin: 8px 0 4px; }
-  p.lead { color: var(--muted); margin: 6px 0 0; font-size: clamp(14px, 2.4vw, 17px); }
-  .card {
-    margin-top: 26px; background: #fff; border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
-    box-shadow: 0 8px 24px rgba(15, 23, 42, .06);
-  }
-  .card-header {
-    display:flex; justify-content:space-between; align-items:center; gap: 12px;
-    padding:16px 18px; background: #fff; border-bottom: 1px solid var(--border);
-  }
-  .badge { font-size:12px; color:#0b1220; background: #dbeafe; padding:6px 10px; border-radius:999px; font-weight: 600; letter-spacing:.2px; border: 1px solid #bfdbfe; }
-  .booking-shell { position: relative; }
-  .booking { width: 100%; height: 760px; border: none; display:block; background: #fff; }
-  .help { margin-top: 18px; color: var(--muted); font-size: 14px; line-height:1.6; }
-  .help a { color: var(--accent); text-decoration: none; }
-  .help a:hover { text-decoration: underline; }
-  .footer { margin-top: 40px; color: var(--muted); font-size: 13px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
-  .dot { width:6px; height:6px; border-radius:999px; background: var(--muted); opacity:.5; }
-  @media (max-width: 720px) {
-    .booking { height: 980px; }
-    .card-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-  }
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hopeful Horizon 24/7 Notary Service — Book an Appointment</title>
+  <meta name="description" content="By appointment only. Use the Google Calendar scheduler below to book your notary appointment today." />
+  <meta name="theme-color" content="#ffffff" />
+  <style>
+    :root{
+      --bg:#ffffff; --card:#ffffff; --text:#0f172a; --muted:#475569;
+      --border:#e6e9ef; --accent:#2563eb; --accent-weak:#eff6ff;
+      --radius:14px; --container:1100px; --gap:16px;
+      --focus: 3px solid rgba(37,99,235,.18);
+    }
+
+    @media (prefers-color-scheme:dark){
+      :root{
+        --bg:#071023; --card:#071428; --text:#e6eef8; --muted:#9aa7bd;
+        --border:rgba(255,255,255,.04); --accent:#60a5fa; --accent-weak:rgba(96,165,250,.08);
+      }
+      meta[name="theme-color"]{ content: "#071023"; }
+    }
+
+    /* Reset & base */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      color:var(--text); background:linear-gradient(180deg,var(--bg),rgba(0,0,0,0.01));
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      line-height:1.45; -webkit-tap-highlight-color:transparent;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{
+      max-width:var(--container); margin:28px auto; padding:22px;
+    }
+
+    /* Accessibility skip link */
+    .skip-link{
+      position:absolute; left:8px; top:8px; transform:translateY(-120%);
+      background:#000; color:#fff; padding:8px 12px; border-radius:8px; z-index:50;
+    }
+    .skip-link:focus{ transform:none; }
+
+    header{display:flex; gap:var(--gap); align-items:center}
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
+    .logo{
+      width:52px; height:52px; border-radius:12px; display:flex; align-items:center; justify-content:center;
+      background:linear-gradient(135deg,#93c5fd 0%,#3b82f6 50%,#1e3a8a 100%); box-shadow:0 10px 30px rgba(30,58,138,.12);
+      flex-shrink:0;
+    }
+    .logo svg{ display:block; width:28px; height:28px }
+
+    h1{font-size:clamp(20px,3.6vw,34px); margin:0}
+    .lead{margin:4px 0 0; color:var(--muted); font-size:clamp(13px,2.2vw,15px)}
+
+    /* Card */
+    .card{
+      margin-top:22px; background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+      overflow:hidden; box-shadow:0 8px 30px rgba(2,6,23,.06);
+    }
+    .card-header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:14px 18px; border-bottom:1px solid var(--border);
+    }
+    .meta{ font-size:14px }
+    .muted{ color:var(--muted); font-size:13px }
+
+    .badge{
+      font-size:12px; color:#062039; background:var(--accent-weak); padding:7px 12px; border-radius:999px;
+      font-weight:700; border:1px solid rgba(59,130,246,.15);
+    }
+
+    /* Responsive scheduler */
+    .booking-shell{
+      position:relative; width:100%;
+      /* Use aspect-ratio when available to preserve a balanced height */
+      aspect-ratio:16/9;
+      min-height:480px;
+      max-height:980px;
+      background:linear-gradient(180deg, rgba(0,0,0,0.01), transparent);
+    }
+    .booking{
+      position:absolute; inset:0; width:100%; height:100%; border:0; display:block; background:transparent;
+      border-radius:0 0 var(--radius) var(--radius);
+    }
+
+    /* Help & footer */
+    .help{ margin-top:16px; color:var(--muted); font-size:14px; line-height:1.6 }
+    .help a{ font-weight:600 }
+    footer{ margin-top:26px; color:var(--muted); font-size:13px; display:flex; gap:12px; flex-wrap:wrap; align-items:center }
+
+    .dot{ width:6px; height:6px; border-radius:999px; background:var(--muted); opacity:.45 }
+
+    /* Small screens */
+    @media (max-width:720px){
+      .card-header{ flex-direction:column; align-items:flex-start }
+      .booking-shell{ aspect-ratio:3/4; min-height:720px }
+      .logo{ width:44px; height:44px }
+    }
+
+    /* Focus/keyboard */
+    :focus{ outline:none }
+    a:focus, button:focus, .booking:focus{
+      box-shadow:var(--focus); border-radius:8px;
+    }
+  </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
   <div class="container">
     <header>
-      <div class="logo" aria-hidden="true"></div>
-      <div>
-        <h1>Hopeful Horizon 24/7 Notary Service</h1>
-        <p class="lead">By appointment only. Use the scheduler below to book your notary appointment today.</p>
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">
+          <!-- Simple accessible SVG mark -->
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+            <rect x="2" y="6" width="20" height="12" rx="3" fill="url(#g)"/>
+            <defs>
+              <linearGradient id="g" x1="0" x2="1">
+                <stop offset="0" stop-color="#93c5fd"/>
+                <stop offset="0.6" stop-color="#3b82f6"/>
+                <stop offset="1" stop-color="#1e3a8a"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div>
+          <h1>Hopeful Horizon 24/7 Notary Service</h1>
+          <p class="lead">By appointment only. Use the scheduler below to book your notary appointment today.</p>
+        </div>
       </div>
     </header>
 
-    <section class="card" aria-labelledby="booking-title">
-      <div class="card-header">
-        <div>
-          <strong id="booking-title">Online Booking</strong>
-          <div style="font-size:13px;color:var(--muted);margin-top:4px">Secure booking • Instant confirmation • Email reminders</div>
+    <main id="main" tabindex="-1">
+      <section class="card" aria-labelledby="booking-title" role="region">
+        <div class="card-header">
+          <div>
+            <strong id="booking-title" class="meta">Online Booking</strong>
+            <div class="muted" style="margin-top:6px">Secure booking • Instant confirmation • Email reminders</div>
+          </div>
+          <span class="badge" aria-hidden="true">Powered by Google Calendar</span>
         </div>
-        <span class="badge">Powered by Google Calendar</span>
-      </div>
 
-      <div class="booking-shell">
-        <iframe
-          class="booking"
-          title="Main Booking"
-          src="https://calendar.app.google/gX4MyLhD8YNoKSzbA"
-          loading="lazy"
-          allowtransparency="true"></iframe>
-      </div>
-    </section>
+        <div class="booking-shell" id="booking-shell" aria-live="polite">
+          <!-- Google Calendar embed: keep title, lazy loading for performance -->
+          <iframe
+            id="scheduler"
+            class="booking"
+            title="Hopeful Horizon booking calendar"
+            src="https://calendar.app.google/gX4MyLhD8YNoKSzbA"
+            loading="lazy"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowtransparency="true"></iframe>
+        </div>
+      </section>
 
-    <p class="help">
-      If you can’t see the scheduler above, <a href="https://calendar.app.google/gX4MyLhD8YNoKSzbA" target="_blank" rel="noopener">open the booking page in a new tab</a>.
-    </p>
+      <noscript>
+        <p class="help">JavaScript is disabled — open the booking page directly: <a href="https://calendar.app.google/gX4MyLhD8YNoKSzbA" target="_blank" rel="noopener">Open booking page</a></p>
+      </noscript>
 
-    <div class="footer">
-      <span>© <span id="yr"></span> Hopeful Horizon 24/7 Notary Service</span>
-      <span class="dot"></span>
-      <span>Contact: <a href="mailto:hopefulhorizonnotary@gmail.com">hopefulhorizonnotary@gmail.com</a></span>
-      <span class="dot"></span>
-      <span>Contact: <a href="mailto:notary@hopefulhorizonsbrokerage.com">notary@hopefulhorizonsbrokerage.com</a></span>
-      <span class="dot"></span>
-      <span><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to top</a></span>
-    </div>
+      <p class="help" id="help-text" hidden>
+        If the scheduler above doesn't appear, <a id="external-link" href="https://calendar.app.google/gX4MyLhD8YNoKSzbA" target="_blank" rel="noopener">open the booking page in a new tab</a>.
+      </p>
+
+      <footer aria-label="Site information">
+        <span>© <span id="yr"></span> Hopeful Horizon 24/7 Notary Service</span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Contact: <a href="mailto:hopefulhorizonnotary@gmail.com">hopefulhorizonnotary@gmail.com</a></span>
+        <span class="dot" aria-hidden="true"></span>
+        <span>Contact: <a href="mailto:notary@hopefulhorizonsbrokerage.com">notary@hopefulhorizonsbrokerage.com</a></span>
+        <span class="dot" aria-hidden="true"></span>
+        <span><a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Back to top</a></span>
+      </footer>
+    </main>
   </div>
 
   <script>
+    // Insert current year
     document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Graceful fallback: if iframe hasn't loaded within 4s, show fallback prompt.
+    (function(){
+      var iframe = document.getElementById('scheduler');
+      var help = document.getElementById('help-text');
+      var fallbackTimer = setTimeout(function(){
+        // If iframe didn't signal load within timeout, show help link.
+        help.hidden = false;
+      }, 4000);
+
+      // When iframe loads successfully, hide fallback and clear timer
+      iframe.addEventListener('load', function(){
+        clearTimeout(fallbackTimer);
+        help.hidden = true;
+      });
+
+      // Accessibility: focus main when user uses skip link
+      document.querySelector('.skip-link').addEventListener('click', function(){
+        setTimeout(function(){ document.getElementById('main').focus(); }, 10);
+      });
+    })();
   </script>
 </body>
 </html>
