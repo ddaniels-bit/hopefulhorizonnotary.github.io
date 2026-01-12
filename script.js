@@ -38,4 +38,18 @@
     rightArm.style.transform = `rotate(${-22 - arm}deg)`;
 
     // jackhammer rattles + moves down on "hit"
-    hammer.style.transform = `translateY(${vib + hi
+    hammer.style.transform = `translateY(${vib + hit * 0.12}px)`;
+
+    // whole guy tiny shake
+    host.style.transform = `translateX(-50%) translateY(${vib}px)`;
+
+    // dust flicker
+    const puff = Math.max(0, Math.sin(t * 8));
+    dust.style.opacity = (0.2 + puff * 0.8).toFixed(2);
+    dust.style.transform = `scale(${(0.9 + puff * 0.25).toFixed(2)})`;
+
+    requestAnimationFrame(loop);
+  }
+
+  loop();
+})();
